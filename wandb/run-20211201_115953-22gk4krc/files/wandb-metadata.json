@@ -1,0 +1,26 @@
+{
+    "os": "Linux-4.4.0-59-generic-x86_64-with-glibc2.17",
+    "python": "3.8.12",
+    "heartbeatAt": "2021-12-01T11:59:54.702123",
+    "startedAt": "2021-12-01T11:59:53.104011",
+    "docker": null,
+    "gpu": "Tesla V100-PCIE-32GB",
+    "gpu_count": 1,
+    "cpu_count": 8,
+    "cuda": null,
+    "args": [
+        "-f",
+        "/opt/ml/.local/share/jupyter/runtime/kernel-c55df2a9-0829-42fa-8f35-3c2f10c63502.json"
+    ],
+    "state": "running",
+    "program": "<python with no main file>",
+    "git": {
+        "remote": "https://github.com/boostcampaitech2/mrc-level2-nlp-14.git",
+        "commit": "725e369a4409c54bf11bcfb9db53865d8fc1f935"
+    },
+    "email": "ktu9682@gmail.com",
+    "root": "/opt/ml/data/mrc-level2-nlp-14",
+    "host": "1eeabb67a2b5",
+    "username": "root",
+    "executable": "/opt/conda/envs/basic/bin/python"
+}

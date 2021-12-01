@@ -1,0 +1,130 @@
+DataArguments:
+
+  # DataPathArguments
+  dataset_name: ./data/KorQuAD-v1.0/train
+  dataset_path: ./data/KorQuAD-v1.0
+  context_path: wiki_800.json
+  overwrite_cache: False
+  preprocessing_num_workers: null
+  make_mask: False
+  masking_type: "mask"
+  curriculum_split_name: train
+  curriculum_learn: False
+  dataset_version: v1.0.0
+  
+  # TokenizerArguments
+  max_seq_length: 512
+  pad_to_max_length: True
+  doc_stride: 128
+  max_answer_length: 30
+  return_token_type_ids: False
+
+  # HightlightingArguments
+  do_underline: False
+  do_punctuation: False
+  top_k_punctuation: 10
+  punct_model_name_or_path: ./outputs/koelectra_v3_test2
+  punct_use_auth_token: True
+  punct_revision: main
+  punct_max_seq_length : 100
+
+  # RetrievalArguments
+  retrieval_mode: elastic_engine
+  retrieval_name: elastic_search
+  rebuilt_index: False
+  retrieval_tokenizer_name: mecab
+  sp_max_features: 50000
+  sp_ngram_range: [1,2]
+  top_k_retrieval: 10
+  use_faiss: False
+  eval_retrieval: False
+  num_clusters: 64
+  
+  # ElasticSearchArguments
+  index_name: wiki-index
+  stopword_path: user_dic/my_stop_dic.txt
+  decompound_mode: mixed
+  b: 0.5
+  k1: 1.3
+  es_host_address: localhost:9200
+  es_similarity: bm25_similarity
+  use_korean_stopwords: False
+  use_korean_synonyms: False
+  lowercase: False
+  nori_readingform: False
+  cjk_bigram: False
+  decimal_digit: False
+  dfr_basic_model: g
+  dfr_after_effect: l
+  es_normalization: h2
+  dfi_measure: standardized
+  ib_distribution: ll
+  ib_lambda: df
+  lmd_mu: 2000
+  lmjm_lambda: 0.1
+  
+  # DenoisingArguments
+  denoising_func: None
+  permute_sentence_ratio: 0.0
+
+ModelArguments:
+
+  # ModelArguments
+  model_name_or_path: monologg/koelectra-small-v3-discriminator
+  reader_type: extractive
+  architectures: AutoModelForQuestionAnswering
+  config_name: null
+  tokenizer_name: null
+  model_cache_dir: cache
+  model_cache_dir: None
+  model_init: basic
+  use_auth_token: True
+  revision: main
+  
+  # ModelHeadArguments
+  model_head: None
+  qa_conv_out_channel: 1024
+  qa_conv_input_size: 384
+  qa_conv_n_layers: 5
+  use_auth_token: Fasle
+  
+TrainingArguments:
+
+  # HfTrainingArguments
+  report_to: wandb
+  run_name: koelectra_v3_test2
+  output_dir: outputs/koelectra_v3_test2
+  overwrite_output_dir: False
+  learning_rate: 5e-5
+  do_train: True
+  do_eval: True
+  do_predict: False            # when True, must set eval_retrieval = True
+  evaluation_strategy: epoch  # when do_eval == False, set 'no'
+  save_strategy: epoch        # when do_eval == False, set 'no'
+  per_device_train_batch_size: 32
+  per_device_eval_batch_size: 32
+  num_train_epochs: 20
+  do_pos_ensemble: False
+  # eval_steps: 100
+  # save_steps: 100
+  save_total_limit: 5
+  fp16: True
+  weight_decay: 0.0
+  warmup_steps: 0
+  load_best_model_at_end: True
+  metric_for_best_model: exact_match
+  logging_dir: logs
+  lr_scheduler_type: cosine
+
+  # Seq2SeqTrainingArguments
+  sortish_sampler: False
+  predict_with_generate: False
+  generation_max_length: null
+  generation_num_beams: null
+  
+
+ProjectArguments:
+  
+  # AnalyzerArguments
+  wandb_project: final_project_odqa
+  checkpoint: null
